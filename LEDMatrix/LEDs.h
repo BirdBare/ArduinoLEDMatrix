@@ -19,6 +19,7 @@ class LEDs: public DMatrix
   int dataPin;
   int clockPin;
   int latchPin;
+  int LEDperReg;
   int* outPins; 
   //which outpins to use on each register, 1=in-use 0=not
   //Reads Least-to-Greatest pins on. 
@@ -26,8 +27,9 @@ class LEDs: public DMatrix
   
  public:  
   LEDs(const int x, const int y, const int z,
-       const int d, const int c, const int l, int *p) : DMatrix(x,y,z),
-       dataPin(d),  clockPin(c), latchPin(l), outPins(p) {};
+       const int d, const int c, const int l, const int r, int *p) : 
+       DMatrix(x,y,z),
+       dataPin(d),  clockPin(c), latchPin(l), LEDperReg(r), outPins(p) {};
   //Constructor
   
   // Description: Main function of whole Matrix. Shifts the matrix to the 
