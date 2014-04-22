@@ -29,9 +29,6 @@ enum Color{ SOLID, RED, GREEN, BLUE, YELLOW, PURPLE, CYAN, WHITE };
 
 class LEDs: public DMatrix
 {
-  #if defined MatrixModifiers_H
-    friend class MatrixModifiers;
-  #endif
 
  protected:
   int dataPin;

@@ -39,8 +39,8 @@ float slope(const Point s, const Point e)
 // Pre: sP and eP must be within Matrix boundries.
 //
 // Post: Line is made from sP to eP. Set to color c and value on.
-void Line(LEDs& Matrix, const Point sP, const Point eP, const Color c=SOLID,
-          const bool on=1)
+void Line(LEDs& Matrix, const Point sP, const Point eP, const bool on=1, 
+          const Color c=SOLID)
 {
   int hInc, wInc;
   float lineSlope=slope(sP,eP);
@@ -64,25 +64,30 @@ void Line(LEDs& Matrix, const Point sP, const Point eP, const Color c=SOLID,
 //
 // Post: Rectangle is made. Set to color c and value on, solid or hollow
 void Rectangle(LEDs& Matrix, const Point sP, const int width, const int height,
-               const bool solid=true, const Color c=SOLID, const bool on=1)
+               const bool solid=true, const bool on=1, const Color c=SOLID)
 {
-  if(width>0)
+  if(width>0 && height>0)
   {
     if(solid)
       for(int h=sP.h; h<(sP.h+height); h++)
-        Line(Matrix,Point(sP.w,h),Point((sP.w+width-1),h),c,on);
+        Line(Matrix,Point(sP.w,h),Point((sP.w+width-1),h),on,c);
       //Makes rectangle by using lines
       
     else
     {
-      Line(Matrix,Point(sP.w,sP.h),Point(sP.w+width-1,sP.h),c,on);
-      Line(Matrix,Point(sP.w,sP.h+height-1),Point(sP.w+width-1,sP.h+height-1),c,on);
-      Line(Matrix,Point(sP.w,sP.h),Point(sP.w,sP.h+height-1),c,on);
-      Line(Matrix,Point(sP.w+width-1,sP.h),Point(sP.w+width-1,sP.h+height-1),c,on);
+      Line(Matrix,Point(sP.w,sP.h),Point(sP.w+width-1,sP.h),on,c);
+      Line(Matrix,Point(sP.w,sP.h+height-1),Point(sP.w+width-1,sP.h+height-1),on,c);
+      Line(Matrix,Point(sP.w,sP.h),Point(sP.w,sP.h+height-1),on,c);
+      Line(Matrix,Point(sP.w+width-1,sP.h),Point(sP.w+width-1,sP.h+height-1),on,c);
     }
     //Makes outline of rectangle
     
   }
   return;
 }
+
+// Description: Makes a triangle. Solid or hollow of color c
+//
+// Pre:
+
 #endif

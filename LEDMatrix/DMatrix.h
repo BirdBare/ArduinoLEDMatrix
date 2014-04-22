@@ -36,5 +36,9 @@ class DMatrix
     };
   };
   //Constructor sets up bool Matrix
+  
+  int getWidth(){return width;}
+  int getHeight(){return height;}
+  
 };
 #endif
