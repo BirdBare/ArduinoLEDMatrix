@@ -7,14 +7,32 @@
 // Use: Origin=(0,0) To use, start at Origin and move Right and Up. Each point
 // is an LED that has an On(!0) and Off(0) state.
 
-#include "Arduino.h"
-#include "DMatrix.h"
-
 #ifndef LEDsMatrix_H
 #define LEDsMatrix_H
 
+#include "Arduino.h"
+#include "DMatrix.h"
+
+// Description: Used in the form Point(x,y), where x>=0 and y>=0, to easily
+// define a region on the matrix.
+struct Point
+{
+  int w;
+  int h;
+  Point(){}
+  Point(const int x, const int y) : w(x),h(y) {}
+};
+
+// Description: The enum Color is used to differ between colors for now.
+enum Color{ SOLID, RED, GREEN, BLUE, YELLOW, PURPLE, CYAN, WHITE };
+
+
 class LEDs: public DMatrix
 {
+  #if defined MatrixModifiers_H
+    friend class MatrixModifiers;
+  #endif
+
  protected:
   int dataPin;
   int clockPin;
@@ -32,7 +50,37 @@ class LEDs: public DMatrix
        dataPin(d),  clockPin(c), latchPin(l), LEDperReg(r), outPins(p) {};
   //Constructor
   
-  // Description: Main function of whole Matrix. Shifts the matrix to the 
+  // Description: This functions is used to change color on a RGB common cathode 
+  // LED diode. 
+  //
+  // Pre: If inPins=1 then Color should be SOLID!
+  //
+  // Post: Color set to on value
+  void setColor(const Point p, const bool on=1, const Color c=SOLID)
+  {
+    int iPlusPlus=1;
+    if(c==SOLID)
+      iPlusPlus=3;
+    //if c==SOLID inpins==1 and only one color should be turned off
+    
+    for(int i=0; i<3; i+=iPlusPlus)
+      Matrix[p.w][p.h][i]=LOW;
+    //Pre-turns off LEDs
+    
+    if(on)
+    {
+      if(c==SOLID || c==RED || c==YELLOW || c==PURPLE || c==WHITE)
+        Matrix[p.w][p.h][0]=on;
+      if(c==GREEN || c==YELLOW || c==CYAN || c==WHITE)
+        Matrix[p.w][p.h][1]=on;
+      if(c==BLUE || c==PURPLE || c==CYAN || c==WHITE)
+        Matrix[p.w][p.h][2]=on;
+    }
+    return;
+  }
+  
+  
+  // Description: Shifts the whole Matrix at once. Shifts the matrix to the 
   // Shift Registers controlling LEDs.
   // 
   // Post: Matrix is set and ready to be latched to pins.
