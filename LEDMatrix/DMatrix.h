@@ -6,10 +6,10 @@
 // Use: Used as a base class from which the LEDs will be controlled.
 //
 
-#include "Arduino.h"
-
 #ifndef MatrixD_H
 #define MatrixD_H
+
+#include <Arduino.h>
 
 class DMatrix
 {
@@ -17,10 +17,10 @@ class DMatrix
   int width;
   int height;
   int inPins;
+  int*** Matrix;
+  //Matrix member variable.
 
  public:
-  int*** Matrix;
-  //Matrix member variable 
   
   DMatrix(const int x, const int y, const int z) :
           width(x),    height(y),   inPins(z)
