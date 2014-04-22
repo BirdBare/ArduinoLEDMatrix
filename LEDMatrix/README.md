@@ -62,12 +62,13 @@ LEDperReg: Number of LEDs each register will run
 outPins[]: The pins the will have the LED connected (1=Connected OR 0=NotConnected)
 ==============================END TEMPLATE=================================
 
-//////////////////////Usable Object and Function///////////////////////////
+//////////////////////Usable Object and Functions///////////////////////////
 
 Object Matrix[width][height][inPin(color)]
   Explanation: Each point in the matrix represents an LED in your real Matrix  Origin(0,0)
 
 Function: setMatrix() USE: object_name.setMatrix();
+          setColor(Point,on/off,Color); //Use this to change points(LEDs) in the Matrix
 **********Remember to flash latchPin from LOW to HIGH for this function call************
 
 ///////////////////////////////////END\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
