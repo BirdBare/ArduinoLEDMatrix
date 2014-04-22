@@ -12,3 +12,5 @@ descriptions of how things work. Function descriptions will always be before the
 Any other descriptions will be touching the area/object they describe and will always be 
 after the described area.
 
+NOTE: LEDs.h MUST be included before MatrixModifiers.h is included!
+
