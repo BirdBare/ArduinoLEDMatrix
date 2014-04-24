@@ -50,8 +50,8 @@ void Line(LEDs& Matrix, const Point sP, const Point eP, const bool on=1,
   
   for(int h=sP.h; (hInc*h)<=(hInc*eP.h); h+=hInc)
     for(int w=sP.w; (wInc*w)<=(wInc*eP.w); w+=wInc)
-      if( (lineSlope==0 && (w==eP.w || h==eP.h)) || (sP.h==h && sP.w==w) ||
-           slope(sP,Point(w,h)) == lineSlope ) 
+      if( lineSlope==0 || (sP.h==h && sP.w==w) ||
+          slope(sP,Point(w,h)) == lineSlope ) 
         Matrix.setColor(Point(w,h),on,c);
   //for loop stack with if statement that decides when to turn on based on slope
   
@@ -81,13 +81,51 @@ void Rectangle(LEDs& Matrix, const Point sP, const int width, const int height,
       Line(Matrix,Point(sP.w+width-1,sP.h),Point(sP.w+width-1,sP.h+height-1),on,c);
     }
     //Makes outline of rectangle
-    
+  
   }
   return;
 }
 
+// y-y1=m(x-x1)
+//mx=y-y1+mx1
+//x=y-y1+mx1/m
+
 // Description: Makes a triangle. Solid or hollow of color c
 //
-// Pre:
+// Pre: Triangle must be within Matrix boundries
+//
+// Post: Triangle is made on matrix set to color c and solid or hollow
+void Triangle(LEDs& Matrix, const Point sP, const int height, const int width,
+              const bool solid=true, const bool on=1, const Color c=SOLID)
+{
+  if(width>0 && height>0)
+  {
+    int w=width/2;
+    if(solid)
+    {
+      float lineSlope[2]={slope(sP,Point(sP.w-w,sP.h-height)),
+                          slope(sP,Point(sP.w+w,sP.h-height))};
+      for(int i=0; i<2; i++)
+      {
+        for(int h=sP.h; h>=sP.h-height; h--)
+        {
+        
+        };
+      
+      };
+    }
+    else
+    {
+      Line(Matrix,sP,Point(sP.w-w,sP.h-height),on,c);
+      Line(Matrix,sP,Point(sP.w+w,sP.h-height),on,c);
+      Line(Matrix,Point(sP.w-w,sP.h-height),Point(sP.w+w,sP.h-height),on,c);
+    }
+  
+  
+  
+  }
+  
+  return;
+}
 
 #endif
