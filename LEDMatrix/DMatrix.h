@@ -41,4 +41,5 @@ class DMatrix
   int getHeight(){return height;}
   
 };
+
 #endif

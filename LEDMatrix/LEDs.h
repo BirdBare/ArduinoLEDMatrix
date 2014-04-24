@@ -76,7 +76,6 @@ class LEDs: public DMatrix
     return;
   }
   
-  
   // Description: Shifts the whole Matrix at once. Shifts the matrix to the 
   // Shift Registers controlling LEDs.
   // 
